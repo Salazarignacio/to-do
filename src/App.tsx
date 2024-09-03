@@ -1,26 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { NavBardo, TaskForm, BasicModal, TaskList } from "./components";
+import { useState } from "react";
 
-function App() {
+export default function App() {
+  const [showModal, setShowModal] = useState(false);
+  const openCloseModal = () => setShowModal(!showModal);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <NavBardo openCloseModal={openCloseModal}></NavBardo>
+      <TaskList></TaskList>
+      <BasicModal
+        show={showModal}
+        close={openCloseModal}
+        title="Nueva Tarea"
+        children={<TaskForm close={openCloseModal} />}
+      ></BasicModal>
     </div>
   );
 }
-
-export default App;
